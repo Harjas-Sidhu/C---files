@@ -41,22 +41,6 @@ class LinkedList{
             cout<<endl;
         }
 
-        void printReverse(){
-            Node* last = NULL;
-            while(last != this->head){
-                Node* current = this->head;
-                while(current != NULL){
-                    if(current->next == last){
-                        cout<<current->data<<" ";
-                        last = current;
-                        break;
-                    }
-                    current = current->next;
-                }
-            }
-            cout<<endl;
-        }
-
         ~LinkedList(){
             Node* current = this->head;
             while(current != NULL){
@@ -75,6 +59,5 @@ int main(){
     l1.addAtEnd(40);
     l1.addAtEnd(50);
     l1.print();
-    l1.printReverse();
     return 0;
 }

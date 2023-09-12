@@ -1,1 +1,0 @@
-cout<<"Burles after reg_coin : "<<burles<<endl;
