@@ -12,9 +12,8 @@ class Node{
 };
 
 class LinkedList{
-    private:
-        Node* head;
     public:
+        Node* head;
         LinkedList(){
             this->head = NULL;
         }
@@ -41,6 +40,14 @@ class LinkedList{
             cout<<endl;
         }
 
+        void reverse(Node* current){
+            if(current == NULL){
+                return;
+            }
+            reverse(current->next);
+            cout<<current->data<<" ";
+        }
+
         ~LinkedList(){
             Node* current = this->head;
             while(current != NULL){
@@ -59,5 +66,6 @@ int main(){
     l1.addAtEnd(40);
     l1.addAtEnd(50);
     l1.print();
+    l1.reverse(l1.head);
     return 0;
 }

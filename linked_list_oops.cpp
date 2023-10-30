@@ -12,6 +12,10 @@ class Node{
             this->next = NULL;
         }
 
+        static Node* head(){
+            return this->next;
+        }
+
         void add(int data){
             Node* newNode = new Node(data);
             if(this->next == NULL){
@@ -91,9 +95,7 @@ int main(){
     n.add(400);
     n.add(500);
     n.print();
-    n.insert(600, 2);
-    n.print();
-    n.del(2);
+    n.reverse();
     n.print();
     return 0;
 }
