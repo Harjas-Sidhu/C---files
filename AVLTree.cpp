@@ -66,11 +66,9 @@ public:
 
         return x;
     }
-    Node *minNode(Node *root)
-    {
-        Node *current = root;
-        while (current->left != NULL)
-        {
+    Node* minNode(Node* root){
+        Node* current = root;
+        while(current->left != NULL){
             current = current->left;
         }
         return current;
@@ -89,8 +87,7 @@ public:
         {
             root->right = insert(root->right, data);
         }
-        else
-        {
+        else{
             return root;
         }
 
@@ -117,68 +114,54 @@ public:
         }
         return root;
     }
-    Node *del(Node *root, int data)
-    {
-        if (root == NULL)
-        {
+    Node* del(Node* root, int data){
+        if(root == NULL){
             return root;
         }
-
-        if (data < root->data)
-        {
+        else if(data < root->data){
             root->left = del(root->left, data);
         }
-        else if (data > root->data)
-        {
+        else if(data > root->data){
             root->right = del(root->right, data);
         }
-        else
-        {
-            if (root->left == NULL)
-            {
-                Node *temp = root->right;
-                delete root;
-                return temp;
+        else{
+            if(root->left == NULL || root->right == NULL){
+                Node* temp = root->left?root->left:root->right;
+                if(temp == NULL){
+                    temp = root;
+                    root = NULL;
+                }
+                else{
+                    *root = *temp;
+                }
+                free(temp);
             }
-            else if (root->right == NULL)
-            {
-                Node *temp = root->left;
-                delete root;
-                return temp;
+            else{
+                Node* temp = minNode(root->right);
+                root->data = temp->data;
+                root->right = del(root->right, temp->data);
             }
-
-            Node *temp = minNode(root->right);
-            root->data = temp->data;
-            root->right = del(root->right, temp->data);
         }
-
-        if (root == NULL)
-        {
+        if(root == NULL){
             return root;
         }
-
         root->height = 1 + max(height(root->left), height(root->right));
         int balance = getBalance(root);
 
-        if (balance > 1 && getBalance(root->left) >= 0)
-        {
+        if(balance > 1 && getBalance(root->left) >= 0){
             return rightRotate(root);
         }
-        if (balance < -1 && getBalance(root->right) <= 0)
-        {
+        if(balance < -1 && getBalance(root->right) <= 0){
             return leftRotate(root);
         }
-        if (balance > 1 && getBalance(root->left) < 0)
-        {
+        if(balance > 1 && getBalance(root->left) < 0){
             root->left = leftRotate(root->left);
             return rightRotate(root);
         }
-        if (balance < -1 && getBalance(root->right) > 0)
-        {
+        if(balance < -1 && getBalance(root->right) > 0){
             root->right = rightRotate(root->right);
             return leftRotate(root);
         }
-
         return root;
     }
     void inorderTreversal(Node *root)
@@ -191,25 +174,20 @@ public:
         cout << root->data << " ";
         inorderTreversal(root->right);
     }
-    void level(Node *root)
-    {
-        if (root == NULL)
-        {
+    void level(Node* root){
+        if(root == NULL){
             return;
         }
-        queue<Node *> q;
+        queue <Node*> q;
         q.push(root);
-        while (!q.empty())
-        {
-            Node *current = q.front();
-            cout << current->data << " ";
+        while(!q.empty()){
+            Node* current = q.front();
+            cout<<current->data<<" ";
             q.pop();
-            if (current->left != NULL)
-            {
+            if(current->left != NULL){
                 q.push(current->left);
             }
-            if (current->right != NULL)
-            {
+            if(current->right != NULL){
                 q.push(current->right);
             }
         }
@@ -228,9 +206,9 @@ int main()
         a1.root = a1.insert(a1.root, k);
     }
     a1.inorderTreversal(a1.root);
-    cout << endl;
+    cout<<endl;
     int t = 0;
-    cin >> t;
+    cin>>t;
     a1.root = a1.del(a1.root, t);
     a1.inorderTreversal(a1.root);
     return 0;
