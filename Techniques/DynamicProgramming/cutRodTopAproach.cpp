@@ -8,17 +8,20 @@ int cutRod(int p[], int n, int r[]){
     int price = 0;
     if(n > 0){
         price = INT_MIN;
-        for(int i = 1; i <= n; i++){
-            price = max(price, p[i]+cutRod(p, n-i, r));
+        for(int i = 1; i <= min(n, 11); i++){
+            if(i <= n){
+                price = max(price, p[i]+cutRod(p, n-i, r));
+            }
         }
     }
     r[n] = price;
     return price;
 }
 
+
 int initializeArray(int p[], int n){
-    int r[n];
-    for(int i = 0; i < n; i++){
+    int r[n+1];
+    for(int i = 0; i <= n; i++){
         r[i] = INT_MIN;
     }
     return cutRod(p, n, r);
